@@ -32,6 +32,38 @@ class App extends Component {
     this.setState({cartList: updatedCartList})
   }
 
+  incrementCartItemQuantity = id => {
+    this.setState(prevState => ({
+      cartList: prevState.cartList.map(eachProduct => {
+        if (eachProduct.id === id) {
+          const modifiedQuantity = eachProduct.quantity + 1
+          return {...eachProduct, quantity: modifiedQuantity}
+        }
+        return eachProduct
+      }),
+    }))
+  }
+
+  decrementCartItemQuantity = id => {
+    const {cartList} = this.state
+
+    const availableProduct = cartList.find(eachProduct => eachProduct.id === id)
+
+    if (availableProduct.quantity > 1) {
+      this.setState(prevState => ({
+        cartList: prevState.cartList.map(eachProduct => {
+          if (eachProduct.id === id) {
+            const updatedQuantity = eachProduct.quantity - 1
+            return {...eachProduct, quantity: updatedQuantity}
+          }
+          return eachProduct
+        }),
+      }))
+    } else {
+      this.removeCartItem(id)
+    }
+  }
+
   addCartItem = product => {
     const {cartList} = this.state
     const checkProductId = cartList.find(eachObj => eachObj.id === product.id)
@@ -56,6 +88,7 @@ class App extends Component {
 
   render() {
     const {cartList} = this.state
+    console.log(cartList)
 
     return (
       <CartContext.Provider
@@ -64,6 +97,8 @@ class App extends Component {
           addCartItem: this.addCartItem,
           removeCartItem: this.removeCartItem,
           removeAllCartItems: this.removeAllCartItems,
+          incrementCartItemQuantity: this.incrementCartItemQuantity,
+          decrementCartItemQuantity: this.decrementCartItemQuantity,
         }}
       >
         <Switch>

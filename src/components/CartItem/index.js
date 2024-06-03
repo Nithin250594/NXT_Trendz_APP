@@ -8,16 +8,27 @@ import './index.css'
 const CartItem = props => (
   <CartContext.Consumer>
     {value => {
-      const {removeCartItem} = value
+      const {
+        removeCartItem,
+        incrementCartItemQuantity,
+        decrementCartItemQuantity,
+      } = value
       const {cartItemDetails} = props
       const {id, title, brand, quantity, price, imageUrl} = cartItemDetails
       const onRemoveCartItem = () => {
         removeCartItem(id)
       }
+      const onDecrementQuantity = () => {
+        decrementCartItemQuantity(id)
+      }
+
+      const onIncrementQuantity = () => {
+        incrementCartItemQuantity(id)
+      }
       // TODO: Update the functionality to increment and decrement quantity of the cart item
 
       return (
-        <li className="cart-item">
+        <li className="cart-item" key={id}>
           <img className="cart-product-image" src={imageUrl} alt={title} />
           <div className="cart-item-details-container">
             <div className="cart-product-title-brand-container">
@@ -29,6 +40,8 @@ const CartItem = props => (
                 type="button"
                 className="quantity-controller-button"
                 aria-label="minusSquare"
+                onClick={onDecrementQuantity}
+                data-testid="minus"
               >
                 <BsDashSquare color="#52606D" size={12} />
               </button>
@@ -37,6 +50,8 @@ const CartItem = props => (
                 type="button"
                 className="quantity-controller-button"
                 aria-label="plusSquare"
+                onClick={onIncrementQuantity}
+                data-testid="plus"
               >
                 <BsPlusSquare color="#52606D" size={12} />
               </button>
@@ -48,6 +63,7 @@ const CartItem = props => (
                 type="button"
                 onClick={onRemoveCartItem}
                 aria-label="remove"
+                data-testid="remove"
               >
                 Remove
               </button>
