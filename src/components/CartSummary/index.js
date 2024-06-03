@@ -14,19 +14,19 @@ class CartSummary extends Component {
     isOrderConfirm: false,
   }
 
-  selectCod = () => {
+  onSelectCod = () => {
     this.setState(prevState => ({cod: !prevState.cod}))
   }
 
-  checkout = () => {
+  onCheckout = () => {
     this.setState({popup: true})
   }
 
-  closePopup = () => {
+  onClosePopup = () => {
     this.setState({popup: false})
   }
 
-  orderConfirmed = () => {
+  onOrderConfirmed = () => {
     this.setState({isOrderConfirm: true, cod: false})
   }
 
@@ -67,7 +67,7 @@ class CartSummary extends Component {
                 <Popup
                   modal
                   open={popup}
-                  onClose={this.closePopup}
+                  onClose={this.onClosePopup}
                   closeOnDocumentClick
                   className="popup-overlay "
                 >
@@ -127,7 +127,7 @@ class CartSummary extends Component {
                             id="cod"
                             type="checkbox"
                             className="check-box"
-                            onChange={this.selectCod}
+                            onChange={this.onSelectCod}
                           />
                           <label htmlFor="cod">Cash on Delivery(COD)</label>
                           <br />
@@ -135,8 +135,8 @@ class CartSummary extends Component {
                             type="button"
                             className={isConfirmOrderEnable}
                             onClick={() => {
-                              this.closePopup()
-                              this.orderConfirmed()
+                              this.onClosePopup()
+                              this.onOrderConfirmed()
                             }}
                             disabled={!cod}
                           >
@@ -150,7 +150,7 @@ class CartSummary extends Component {
                 <button
                   type="button"
                   className="checkout-button"
-                  onClick={this.checkout}
+                  onClick={this.onCheckout}
                 >
                   Checkout
                 </button>
