@@ -6,8 +6,8 @@ import './index.css'
 
 class LoginForm extends Component {
   state = {
-    username: '',
-    password: '',
+    username: 'Nithin2505',
+    password: 'rahul@2021',
     showSubmitError: false,
     errorMsg: '',
   }
@@ -35,7 +35,8 @@ class LoginForm extends Component {
 
   submitForm = async event => {
     event.preventDefault()
-    const {username, password} = this.state
+    const {password} = this.state
+    const username = 'rahul'
     const userDetails = {username, password}
     const url = 'https://apis.ccbp.in/login'
     const options = {
